@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VShelf - Seu aplicativo de gerenciamento de títulos</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+
+    <meta name="description"
+        content="Um aplicativo para desktops windows que permite gerenciar, avaliar, adicionar observações, compartilhar seus títulos favoritos e muito mais.">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="bg-[#0c0c12] text-white min-h-screen flex flex-col cursor-default">
+    <!-- Barra de topo -->
+    <header class="flex items-center justify-between px-8 py-4 bg-[#101018] border-b border-[#1e1e2b]">
+        <h1 class="text-xl font-semibold tracking-wide">VShelf</h1>
+        <p class="text-sm text-gray-400">v1.2.24 • <span class="text-gray-500">Flint API</span></p>
+    </header>
+
+    <!-- Conteúdo principal -->
+    <main class="flex flex-1 flex-col items-center justify-center text-center px-6 gap-5">
+        <h1 class="text-3xl sm:text-4xl font-bold mb-4">
+            Bem-vindo(a)
+            <span class="text-[#9d7bff] font-semibold">👋</span>
+        </h1>
+
+        <p class="text-gray-400 max-w-xl leading-relaxed mb-8">
+            O <span class="text-white font-semibold">VShelf</span> agora está ainda mais rápido e seguro com a nova
+            <span class="text-[#9d7bff] font-medium">Flint API</span>.
+            Aproveite a experiência aprimorada e explore seus títulos favoritos!
+        </p>
+
+        <!-- <div class="flex flex-wrap justify-center gap-10">
+      <button
+        class="bg-[#1a1a26] hover:bg-[#232334] text-white px-6 py-3 rounded-lg border border-[#2a2a3c] transition-all duration-300">
+        📚 Meus Títulos
+      </button>
+      <button
+        class="bg-[#1a1a26] hover:bg-[#232334] text-white px-6 py-3 rounded-lg border border-[#2a2a3c] transition-all duration-300">
+        ➕ Adicionar Novo
+      </button>
+      <button
+        class="bg-[#1a1a26] hover:bg-[#232334] text-white px-6 py-3 rounded-lg border border-[#2a2a3c] transition-all duration-300">
+        ⚙️ Configurações
+      </button>
+    </div> -->
+
+        <a href="/download">
+            <h1 class="text-xl font-semibold tracking-wide text-[#ffcc66] cursor-pointer">Baixar para windows</h1>
+        </a>
+        <a href="/discord">
+            <h1 class="text-xl font-semibold tracking-wide text-blue-500 cursor-pointer">Entre no nosso Discord</h1>
+        </a>
+
+        <!-- Linha divisória -->
+        <div class="w-24 h-[2px] bg-[#2e2e3f] my-20 rounded-full"></div>
+
+        <section class="text-gray-400">
+            <h2 class="text-lg font-semibold mb-2 text-white">Novidades da versão v1.2.24</h2>
+            <ul class="text-sm space-y-1">
+                <li>• 🔒 Camada de dupla criptografia com a Flint API</li>
+                <li>• ⚡ Melhor desempenho na listagem de títulos</li>
+                <li>• 🎨 Interface mais fluida e responsiva</li>
+                <li>• 🧠 Suporte ampliado para sincronização inteligente</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="flex justify-between items-center px-8 py-3 text-gray-500 text-sm border-t border-[#1e1e2b]">
+        <span>© 2025 VShelf. Todos os direitos reservados.</span>
+        <a href="https://github.com/vshelf/windows" target="_blank"
+            class="hover:text-[#9d7bff] transition-colors">GitHub ↗</a>
+    </footer>
+</body>
+
+
+</html>

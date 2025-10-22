@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VShelf - Seu aplicativo de gerenciamento de títulos</title>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+
+    <meta name="description"
+        content="Um aplicativo para desktops windows que permite gerenciar, avaliar, adicionar observações, compartilhar seus títulos favoritos e muito mais.">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        *,
+        body,
+        html {
+
+            font-family: "Montserrat", sans-serif;
+        }
+    </style>
+
+    <script>
+        const title = JSON.parse(localStorage.getItem('title'));
+
+        window.onload = () => {
+            localStorage.removeItem('title');
+            localStorage.setItem('loaded', false);
+
+            const queryParams = new URLSearchParams(window.location.search);
+
+            const id = queryParams.get('id');
+
+            if (!id) {
+                window.alert('Título não encontrado');
+                window.location.href = '/';
+                return;
+            };
+
+            fetch(`https://flintapi-production.up.railway.app/api/vshelf/title/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then(res => {
+                return res.json();
+            }).then(async (data) => {
+                if (data.status == "error") {
+                    window.alert('Título não encontrado');
+                    window.location.href = '/';
+                    return;
+                };
+
+                if (data.status == "success") {
+                    const title = data.title;
+
+                    await localStorage.setItem('title', JSON.stringify(title));
+                    await localStorage.setItem('loaded', true);
+
+                    window.document.title = "VShelf - " + title.titulo;
+
+                    window.document.getElementById('window').style.display = 'block';
+
+                    const background = window.document.getElementById('background');
+                    background.src = title.background;
+
+                    const capa = window.document.getElementById('capa');
+                    capa.src = title.image;
+
+                    const titleElement = window.document.getElementById('title');
+                    titleElement.innerHTML = title.titulo.length > 24
+                        ? `${title.titulo.substring(0, 24)}...`
+                        : title.titulo;
+
+                    const notaElement = window.document.getElementById('nota');
+                    notaElement.innerHTML = title.estrelas * 2 + '/10';
+
+                    const streamElement = window.document.getElementById('stream');
+                    streamElement.innerHTML = title.stream;
+
+                    const generoElement = window.document.getElementById('genero');
+                    generoElement.innerHTML = title.genero;
+
+                    const tipoElement = window.document.getElementById('tipo');
+                    tipoElement.innerHTML = title.tipo;
+
+                    const classificacaoElement = window.document.getElementById('classificacao');
+                    classificacaoElement.innerHTML = title.classificacao;
+
+                    const nota2Element = window.document.getElementById('nota2');
+                    nota2Element.innerHTML = title.nota || 'Nenhuma nota informada';
+
+                    const sinopseElement = window.document.getElementById('sinopse');
+                    sinopseElement.innerHTML = title.sinopse || 'Nenhuma sinopse informada';
+                };
+            });
+        };
+    </script>
+</head>
+
+<body class="bg-[#0b0b0e] text-white min-h-screen flex items-center justify-center p-6">
+  <div id="window" class="max-w-3xl w-full bg-[#14141c] rounded-2xl shadow-xl overflow-hidden border border-[#1f1f2a]">
+    <!-- Imagem de fundo -->
+    <div class="relative w-full h-64">
+      <img id="background" src=" " alt="Banner"
+        class="w-full h-full object-cover opacity-80">
+      <div class="absolute inset-0 bg-gradient-to-t from-[#14141c] via-transparent to-transparent"></div>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="p-6 sm:p-8">
+      <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+        <!-- Capa -->
+        <img id="capa" src=" " alt="Capa"
+          class="w-40 h-52 object-cover rounded-lg shadow-lg border border-[#222]">
+
+        <!-- Informações -->
+        <div class="flex flex-col gap-2 text-center sm:text-left">
+          <h1 id="title" class="text-3xl font-bold uppercase tracking-wide">Carregando...</h1>
+          <p class="text-gray-400 font-semibold text-lg">
+            Nota: <span id="nota" class="text-yellow-400">0/10</span>
+          </p>
+
+          <div class="mt-2 space-y-1 text-gray-300 text-sm">
+            <p><b>Stream:</b> <span id="stream">Carregando...</span></p>
+            <p><b>Gênero:</b> <span id="genero">Carregando...</span></p>
+            <p><b>Tipo:</b> <span id="tipo">Carregando...</span></p>
+            <p><b>Classificação:</b> <span id="classificacao">Carregando...</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nota pessoal -->
+      <div class="mt-8 border-t border-[#1f1f2a] pt-6">
+        <h2 class="text-xl font-semibold uppercase">Nota:</h2>
+        <p id="nota2" class="text-gray-400 italic mt-1">Carregando...</p>
+      </div>
+
+      <!-- Sinopse -->
+      <div class="mt-8 mb-3">
+        <h2 class="text-xl font-semibold uppercase">Sinopse:</h2>
+        <p id="sinopse" class="text-gray-400 italic mt-2 leading-relaxed">Carregando...</p>
+      </div>
+    </div>
+  </div>
+</body>
+
+
+</html>

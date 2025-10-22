@@ -1,0 +1,7 @@
+Sitemap: https://www.vshelf.app/sitemap.xml
+
+User-agent: *
+
+Allow: /
+Allow: /download
+Allow: /discord
